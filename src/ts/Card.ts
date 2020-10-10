@@ -6,6 +6,8 @@ export class Card {
 
     icon: string;
 
+    id: number;
+
     showFront: boolean = true;
 
     element: JQuery<HTMLElement>;
@@ -14,10 +16,12 @@ export class Card {
 
     constructor(icon: string,
                 document: Document,
-                callback: (card: Card) => void) {
+                callback: (card: Card) => void,
+                id: number) {
 
         this.icon = icon;
         this.callback = callback;
+        this.id = id;
 
         this.element = $(fileContent);
 
@@ -33,10 +37,13 @@ export class Card {
         gameField.append(this.element);
     }
 
-    flipCard() {
-        this.callback(this);
+    hideCard() {
+        this.element.addClass("hidden");
+    }
 
+    flipCard() {
         this.showFront = !this.showFront;
+        this.callback(this);
 
         if (this.showFront) {
             this.element.addClass("show-front");
@@ -44,5 +51,12 @@ export class Card {
             this.element.removeClass("show-front");
         }
     }
-
+    flipCardSilently() {
+        this.showFront = !this.showFront;
+        if (this.showFront) {
+            this.element.addClass("show-front");
+        } else {
+            this.element.removeClass("show-front");
+        }
+    }
 }
