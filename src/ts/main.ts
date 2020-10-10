@@ -22,11 +22,22 @@ $(document).ready(function () {
 
     icons = shuffle(icons);
 
-    let lastCard = null;
+    let lastCard:Card = null;
 
     for (let i = 0; i < icons.length; i++) {
         let card = new Card(icons[i], document, function (card) {
-            console.log(card.icon);
-        });
+            if (!lastCard) {
+                lastCard = card;
+                return;
+            }
+            if (lastCard.icon==card.icon&&lastCard.id!=card.id) {
+                card.hideCard();
+                lastCard.hideCard();
+                return;
+            }
+            card.flipCardSilently();
+            lastCard.flipCardSilently();
+            lastCard = null;
+        }, i);
     }
 });
