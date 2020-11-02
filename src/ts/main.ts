@@ -22,11 +22,33 @@ $(document).ready(function () {
 
     icons = shuffle(icons);
 
-    let lastCard = null;
+    let lastCard: Card = null;
+
+    let cardsLeft = icons.length;
 
     for (let i = 0; i < icons.length; i++) {
         let card = new Card(icons[i], document, function (card) {
-            console.log(card.icon);
+            if (lastCard == null) {
+                lastCard = card;
+                return;
+            }
+
+            if (lastCard.icon == card.icon && lastCard != card) {
+                lastCard.remove();
+                card.remove();
+
+                cardsLeft -= 2;
+
+                if (cardsLeft == 0) {
+                    alert("You won!");
+                }
+
+            } else {
+                lastCard.hide();
+                card.hide();
+            }
+
+            lastCard = null;
         });
     }
 });

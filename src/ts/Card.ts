@@ -12,10 +12,11 @@ export class Card {
 
     callback: (card: Card) => void;
 
+    removed: boolean = false;
+
     constructor(icon: string,
                 document: Document,
                 callback: (card: Card) => void) {
-
         this.icon = icon;
         this.callback = callback;
 
@@ -26,6 +27,10 @@ export class Card {
         this.element.find("i").addClass(icon);
 
         this.element.click(() => {
+            if (this.removed) {
+                return;
+            }
+
             this.flipCard();
         });
 
@@ -34,8 +39,6 @@ export class Card {
     }
 
     flipCard() {
-        this.callback(this);
-
         this.showFront = !this.showFront;
 
         if (this.showFront) {
@@ -43,6 +46,21 @@ export class Card {
         } else {
             this.element.removeClass("show-front");
         }
+
+        setTimeout(() => {
+            this.callback(this);
+        }, 500);
+    }
+
+    remove() {
+        this.removed = true;
+        this.element.removeClass("show-front");
+        this.element.addClass("removed")
+    }
+
+    hide() {
+        this.showFront = true;
+        this.element.addClass("show-front");
     }
 
 }

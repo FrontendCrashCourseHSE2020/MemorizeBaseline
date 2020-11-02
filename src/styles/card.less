@@ -1,14 +1,28 @@
 .game-card {
   height: 300px;
-  background-color: #ffc200;
 
   .front {
+    height: 300px;
+    background-color: #ffc200;
     display: none;
+  }
+  .back {
+    height: 300px;
+    background-color: #ffc200;
   }
 
   &.show-front {
     .front {
       display: block;
+    }
+    .back {
+      display: none;
+    }
+  }
+
+  &.removed {
+    .front {
+      display: none;
     }
     .back {
       display: none;

@@ -5,8 +5,7 @@
     "scripts": {
         "serve": "webpack-dev-server --progress --color",
         "build": "webpack -w",
-        "build:prod": "cross-env NODE_ENV=production webpack",
-        "test": "karma start"
+        "build:prod": "cross-env NODE_ENV=production webpack"
     },
     "keywords": [
         "webpack",
